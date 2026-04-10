@@ -1,0 +1,26 @@
+{
+  "agent": {
+    "model": "anthropic/sonnet-4.6",
+    "systemPrompt": "workspace/AGENTS.md",
+    "tools": {
+      "allow": [
+        "bash",
+        "read",
+        "write", 
+        "edit",
+        "glob",
+        "grep",
+        "websearch",
+        "webfetch",
+        "browser",
+        "codesearch"
+      ]
+    }
+  },
+  "agents": {
+    "defaults": {
+      "workspace": "workspace",
+      "model": "anthropic/sonnet-4.6"
+    }
+  }
+}
