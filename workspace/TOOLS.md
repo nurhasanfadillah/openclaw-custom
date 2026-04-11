@@ -10,6 +10,6 @@
 - `webfetch` - Fetch URLs
 
 ## Usage
-- Verify before completion
-- Use version control
+- Verify sebelum completion
+- Gunakan version control
 - Document decisions

@@ -1,9 +1,9 @@
 ---
 name: programming
-description: 'Programming assistance, development, debugging, code review. Use for: features, bug fixing, refactoring, API design, testing.'
+description: 'Programming assistance. Use for: development, debugging, code review, features, bug fixing, refactoring, testing.'
 metadata:
   {
-    "openclaw": { "emoji": "💻", "requires": { "anyTools": ["bash", "read", "write", "edit", "grep"] } }
+    "openclaw": { "emoji": "💻" }
   }
 ---
 

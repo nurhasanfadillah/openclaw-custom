@@ -1,10 +1,12 @@
 ---
+---
 name: digital-marketing
-description: 'Digital marketing strategy, content, analytics. Use for: social media, email, SEO, content planning, competitive analysis.'
+description: 'Digital marketing. Use for: social media strategy, email campaigns, SEO, content planning, competitive analysis.'
 metadata:
   {
-    "openclaw": { "emoji": "📈", "requires": { "anyTools": ["websearch", "webfetch"] } }
+    "openclaw": { "emoji": "📈" }
   }
+---
 ---
 
 # Digital Marketing
