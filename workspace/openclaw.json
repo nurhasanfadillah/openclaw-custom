@@ -2,7 +2,7 @@
   "agents": {
     "defaults": {
       "workspace": "workspace",
-      "model": "anthropic/sonnet-4-6"
+      "model": "claude-sonnet-4-6"
     }
   },
   "session": {
