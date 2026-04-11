@@ -1,9 +1,24 @@
 {
+  "gateway": {
+    "mode": "local"
+  },
   "agents": {
     "defaults": {
       "workspace": "workspace",
       "model": "claude-sonnet-4-6"
     }
+  },
+  "tools": {
+    "allow": [
+      "bash",
+      "read",
+      "write",
+      "edit",
+      "glob",
+      "grep",
+      "websearch",
+      "webfetch"
+    ]
   },
   "session": {
     "reset": {
