@@ -4,78 +4,38 @@
 
 - VPS dengan Ubuntu 20.04+
 - Sudo access
-- Domain/IP publik
 
 ---
 
-## Step 1: Install Node.js
+## Cara Install (Otomatis)
 
-Wajib Node.js 22+:
+Jalankan satu perintah ini:
 
 ```bash
+curl -fsSL https://raw.githubusercontent.com/nurhasanfadillah/openclaw-custom/main/install-custom.sh | bash
+```
+
+Selesai! Installer akan:
+1. ✅ Install Node.js 22+
+2. ✅ Install OpenClaw CLI
+3. ✅ Pull custom workspace (Digital Marketing & Pemrograman)
+4. ✅ Buat konfigurasi default
+
+---
+
+## Manual Setup (Untuk Customize)
+
+Jika ingin install manual:
+
+```bash
+# Step 1: Node.js 22+
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt install -y nodejs
-```
 
-Verifikasi - harus v22+:
-```bash
-node --version
-```
-
----
-
-## Step 2: Install OpenClaw CLI
-
-```bash
+# Step 2: OpenClaw CLI
 npm install -g openclaw@latest
-```
 
-Verifikasi:
-```bash
-openclaw --version
-```
-
----
-
-## Step 3: Setup API Key
-
-Buat file config:
-```bash
-mkdir -p ~/.openclaw
-nano ~/.openclaw/openclaw.json
-```
-
-Isi dengan:
-```json
-{
-  "agents": {
-    "defaults": {
-      "model": "claude-sonnet-4-6"
-    }
-  }
-}
-```
-
-Set environment variable:
-```bash
-# Untuk Anthropic Claude
-export ANTHROPIC_API_KEY="sk-ant-xxx"
-
-# Atau OpenAIGPT
-export OPENAI_API_KEY="sk-xxx"
-```
-
-Simpan ke .bashrc (permanen):
-```bash
-echo 'export ANTHROPIC_API_KEY="sk-ant-xxx"' >> ~/.bashrc
-source ~/.bashrc
-```
-
----
-
-## Step 4: Setup Workspace (Opsional)
-
-```bash
+# Step 3: Workspace + Config
 mkdir -p ~/.openclaw/workspace
 git clone https://github.com/nurhasanfadillah/openclaw-custom.git /tmp/oc
 cp -r /tmp/oc/workspace/* ~/.openclaw/workspace/
@@ -84,100 +44,44 @@ rm -rf /tmp/oc
 
 ---
 
-## Step 5: Jalankan Gateway
+## Setup API Key (Wajib)
 
 ```bash
-openclaw gateway run --port 18789 --bind 0.0.0.0
+echo 'export ANTHROPIC_API_KEY="sk-ant-xxx"' >> ~/.bashrc
+source ~/.bashrc
 ```
-
-Akses di browser: `http://IP-VPS:18789`
 
 ---
 
-## Setup Channel ( Contoh Telegram)
+## Setup Channel (Opsional - Manual)
 
-1. Buka @BotFather di Telegram
-2. Buat bot baru, dapat token
-3. Edit config:
+Edit `~/.openclaw/openclaw.json`:
 
-```bash
-nano ~/.openclaw/openclaw.json
-```
-
-Tambah:
 ```json
 {
-  "agents": {
-    "defaults": {
-      "model": "claude-sonnet-4-6"
-    }
-  },
+  "agents": { "defaults": { "model": "claude-sonnet-4-6" } },
   "channels": {
-    "telegram": {
-      "botToken": "YOUR_TOKEN"
-    }
+    "telegram": { "botToken": "YOUR_TOKEN" }
   }
 }
 ```
 
-Restart gateway:
+---
+
+## Jalankan Gateway
+
 ```bash
-pkill -f openclaw-gateway
 openclaw gateway run --port 18789 --bind 0.0.0.0
 ```
 
----
-
-## Masalah Umum & Solusi
-
-### Command not found: openclaw
-```bash
-source ~/.bashrc
-# atau cari lokasi
-npm root -g
-export PATH="$PATH:$(npm root -g)"
-```
-
-### Port 18789 sudah digunakan
-```bash
-lsof -i :18789
-kill -9 <PID>
-```
-
-### Invalid API Key
-```bash
-# Cek env var
-echo $ANTHROPIC_API_KEY
-# Harus mulai dengan sk-ant-
-```
-
-### Model tidak ditemukan
-Pakai format yang benar:
-- `claude-sonnet-4-6`
-- `claude-opus-4-5`
-- `gpt-5.4`
-
-### Gateway tidak bisa diakses dari luar
-Gunakan `--bind 0.0.0.0` bukan `--bind loopback`
+Akses: `http://IP-VPS:18789`
 
 ---
 
-## Cek Status
+## Masalah Umum
 
-```bash
-# Cek running
-ps aux | grep openclaw
-
-# Tes kesehatan
-openclaw status
-
-# Lihat logs
-tail -f ~/.openclaw/logs/gateway.log
-```
-
----
-
-## Quotes
-
--Discord: https://discord.gg/clawd
--Docs Resmi: https://docs.openclaw.ai
+| Masalah | Solusi |
+|---------|-------|
+| Port terpakai | `kill -9 $(lsof -t -i:18789)` |
+| Node tidak found | `source ~/.bashrc` |
+| API Key error | Cek: `echo $ANTHROPIC_API_KEY` |
